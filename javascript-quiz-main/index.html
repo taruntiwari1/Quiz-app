@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <title>Computer Fundamentals Quiz</title>
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <a id="leaderboard-link" href="#" role="button">View Highscores <i class="fas fa-hand-point-left fa-lg"></i></a>
+    <time aria-live="polite">Time: <span id="time"></span></time>
+  </header>
+
+  <main>
+    <!-- Start card -->
+    <div id="start-card" class="card">
+      <h2 id="title">Computer Fundamentals Quiz</h2>
+      <p>
+        Try to answer the following computer fundamentals questions within the time limit.
+        <br /><br />
+        Keep in mind that incorrect answers will penalize your time by ten seconds!
+      </p>
+      <button id="start-button" class="button" type="button">Start Quiz</button>
+    </div>
+
+    <!-- Question card -->
+    <div hidden id="question-card" class="card">
+      <h2 id="question-text"></h2>
+
+      <div id="quiz-options" aria-label="Quiz options">
+        <button id="option0" type="button" class="button option-button" aria-label="Option 1"></button>
+        <button id="option1" type="button" class="button option-button" aria-label="Option 2"></button>
+        <button id="option2" type="button" class="button option-button" aria-label="Option 3"></button>
+        <button id="option3" type="button" class="button option-button" aria-label="Option 4"></button>
+      </div>
+
+      <div id="result-div" aria-live="polite">
+        <hr />
+        <p id="result-text"></p>
+      </div>
+    </div>
+
+    <!-- Score card (single detailed card) -->
+    <div hidden id="score-card" class="card">
+      <h2>All done!</h2>
+
+      <p>Your final score is <strong><span id="score"></span></strong> / <span id="total-questions"></span></p>
+
+      <p>✅ Correct Answers: <strong><span id="correct-count"></span></strong></p>
+      <p>❌ Wrong Answers: <strong><span id="wrong-count"></span></strong></p>
+
+      <form class="inline-form" id="submission-form">
+        <label for="initials">Enter Your Name: </label>
+        <input type="text" id="initials" autocomplete="name" />
+        <button id="submit-button" class="button" type="button">Submit</button>
+      </form>
+    </div>
+
+    <!-- Leaderboard -->
+    <div hidden id="leaderboard-card" class="card">
+      <h2>Highscores</h2>
+      <ol id="highscore-list"></ol>
+
+      <div class="inline-buttons">
+        <button id="back-button" class="button" type="button">Go Back</button>
+        <button id="clear-button" class="button" type="button">Clear Highscores</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Watermark / credit -->
+  <footer class="watermark" aria-label="credit">
+    <span>Made with <span class="heart">❤️</span> by <strong>Tarun Tiwari</strong></span>
+  </footer>
+
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
