@@ -2,7 +2,7 @@
    Dark Theme Modern Quiz App
    ========================= */
 
-/* Reset */
+/* Reset default margin/padding and set box-sizing for consistent sizing */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,38 +12,41 @@
 /* Body Styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #0f0f0f;
-  color: #f1f1f1;
-  min-height: 100vh;
+  background-color: #0f0f0f;   /* dark background */
+  color: #f1f1f1;              /* light text for contrast */
+  min-height: 100vh;           /* full screen height */
   display: flex;
   flex-direction: column;
 
-  /* Square pattern background */
+  /* Subtle square pattern for modern background look */
   background-image: 
     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
-/* Header */
+/* =========================
+   Header
+   ========================= */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* timer on right, link on left */
   align-items: center;
   background: #1c1c1c;
   color: #fff;
   padding: 1rem 2rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-  position: sticky;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.8); /* depth effect */
+  position: sticky;  /* stays at top while scrolling */
   top: 0;
   z-index: 100;
-  animation: slideDown 0.6s ease;
+  animation: slideDown 0.6s ease; /* entrance animation */
 }
 
+/* Link inside header */
 header a {
-  color: #00f7ff;
+  color: #00f7ff; /* cyan accent */
   text-decoration: none;
   cursor: pointer;
   font-size: 0.95rem;
@@ -51,25 +54,29 @@ header a {
 }
 
 header a:hover {
-  color: #ff4ecd;
-  transform: scale(1.05);
+  color: #ff4ecd;  /* pink hover */
+  transform: scale(1.05); /* subtle zoom */
 }
 
-/* Timer */
+/* =========================
+   Timer
+   ========================= */
 time {
   font-size: 1rem;
   font-weight: 600;
   background: #ff4ecd;
   color: #fff;
   padding: 6px 14px;
-  border-radius: 25px;
+  border-radius: 25px;   /* pill shape */
   min-width: 90px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(255,78,205,0.5);
-  animation: pulse 2s infinite;
+  animation: pulse 2s infinite; /* glowing pulse effect */
 }
 
-/* Main Layout */
+/* =========================
+   Main Layout
+   ========================= */
 main {
   display: flex;
   flex: 1;
@@ -78,23 +85,25 @@ main {
   padding: 2rem;
 }
 
-/* Card */
+/* =========================
+   Card (Quiz, Score, Leaderboard)
+   ========================= */
 .card {
   width: 100%;
-  max-width: 650px;
+  max-width: 650px;  /* centered and not too wide */
   background: #1c1c1c;
   padding: 2rem;
   margin-top: 3rem;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-  border: 1px solid rgba(255,255,255,0.05);
-  animation: fadeIn 0.5s ease-in-out;
+  border: 1px solid rgba(255,255,255,0.05); /* subtle border */
+  animation: fadeIn 0.5s ease-in-out; /* entrance fade */
 }
 
 .card h2 {
   margin-bottom: 1rem;
   font-size: 1.8rem;
-  background: linear-gradient(90deg, #00f7ff, #ff4ecd);
+  background: linear-gradient(90deg, #00f7ff, #ff4ecd); /* gradient text */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -102,18 +111,20 @@ main {
 .card p {
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  color: #ddd;
+  color: #ddd; /* softer gray for readability */
 }
 
-/* Buttons */
+/* =========================
+   Buttons
+   ========================= */
 .button {
   display: inline-block;
-  width: 100%;
+  width: 100%; /* full-width for quiz options */
   margin: 0.5rem 0;
   padding: 0.9rem 1.2rem;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(135deg, #00f7ff, #007bff);
+  background: linear-gradient(135deg, #00f7ff, #007bff); /* cyan-blue gradient */
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
@@ -125,11 +136,12 @@ main {
 }
 
 .button:hover {
-  background: linear-gradient(135deg, #ff4ecd, #7b2ff7);
+  background: linear-gradient(135deg, #ff4ecd, #7b2ff7); /* pink-purple hover */
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 6px 18px rgba(255,78,205,0.4);
 }
 
+/* Grouped buttons (leaderboard actions) */
 .inline-buttons {
   display: flex;
   justify-content: flex-start;
@@ -137,25 +149,29 @@ main {
   margin-top: 1rem;
 }
 
-/* Options */
+/* Option button styling (answers) */
 .option-button {
-  text-align: left;
+  text-align: left; /* left-align answers */
   font-size: 0.95rem;
 }
 
-/* Result */
+/* =========================
+   Result Feedback
+   ========================= */
 #result-div {
   margin-top: 1rem;
-  display: none;
+  display: none; /* shown dynamically by JS */
 }
 
 #result-text {
   font-weight: 600;
   color: #00f7ff;
-  animation: fadeIn 0.4s ease;
+  animation: fadeIn 0.4s ease; /* fade effect for feedback */
 }
 
-/* Score Card */
+/* =========================
+   Score Card (Name Input)
+   ========================= */
 .inline-form {
   display: flex;
   align-items: center;
@@ -173,7 +189,9 @@ main {
   border-radius: 8px;
 }
 
-/* Leaderboard */
+/* =========================
+   Leaderboard Styles
+   ========================= */
 #highscore-list {
   margin: 1rem 0;
   padding-left: 1.2rem;
@@ -186,11 +204,13 @@ main {
   border-radius: 8px;
   font-weight: 500;
   color: #fff;
-  border-left: 4px solid #00f7ff;
+  border-left: 4px solid #00f7ff; /* accent line */
   animation: fadeIn 0.4s ease;
 }
 
-/* Animations */
+/* =========================
+   Animations
+   ========================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -207,7 +227,9 @@ main {
   100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,78,205,0.6); }
 }
 
-/* Responsive */
+/* =========================
+   Responsive (small screens)
+   ========================= */
 @media (max-width: 600px) {
   .card {
     padding: 1.5rem;
@@ -224,11 +246,11 @@ main {
 .watermark {
   position: fixed;
   bottom: 14px;
-  right: 16px;                 /* bottom-right corner */
+  right: 16px; /* bottom-right corner placement */
   z-index: 200;
   padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);  /* subtle glass chip */
+  border-radius: 999px; /* pill shape */
+  background: rgba(255, 255, 255, 0.06);  /* subtle glass effect */
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.08);
@@ -237,29 +259,32 @@ main {
   font-size: 0.9rem;
   letter-spacing: 0.2px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  user-select: none;
+  user-select: none; /* prevent text selection */
   transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
+/* Heart icon inside watermark */
 .watermark .heart {
   display: inline-block;
   transform: translateY(1px);
-  animation: heartBeat 2s infinite;
+  animation: heartBeat 2s infinite; /* pulsing heart */
 }
 
+/* Gradient text for author name */
 .watermark strong {
   background: linear-gradient(90deg, #00f7ff, #7b2ff7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+/* Hover effect for watermark */
 .watermark:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.10);
   box-shadow: 0 10px 24px rgba(0,0,0,0.45);
 }
 
-/* small screens tweak */
+/* Responsive watermark placement on very small screens */
 @media (max-width: 480px) {
   .watermark {
     left: 50%;
@@ -269,7 +294,7 @@ main {
   }
 }
 
-/* cute pulse */
+/* Heart pulse animation */
 @keyframes heartBeat {
   0%   { transform: scale(1) translateY(1px); }
   25%  { transform: scale(1.12) translateY(1px); }

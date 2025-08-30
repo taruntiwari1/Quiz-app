@@ -1,9 +1,17 @@
 // ===============================
 // Computer Fundamentals & Knowledge Quiz
 // ===============================
+
+
+// Track correct and wrong answers count
 let correctCount = 0;
 let wrongCount = 0;
 
+
+// ===============================
+// Quiz Questions (array of objects)
+// Each object has the question, multiple options, and the correct answer
+// ===============================
 const questions = [
   {
     questionText: "Who is known as the father of computers?",
@@ -133,7 +141,7 @@ const questions = [
 ];
 
 // ===============================
-// DOM elements
+// DOM Elements (cached for re-use)
 // ===============================
 const startCard = document.querySelector("#start-card");
 const questionCard = document.querySelector("#question-card");
@@ -144,80 +152,101 @@ const resultText = document.querySelector("#result-text");
 const timeDisplay = document.querySelector("#time");
 
 // ===============================
-// Helpers
+// Helper Functions
 // ===============================
+
+// Hide all quiz "cards" so only the active one is visible
 function hideCards() {
   startCard.setAttribute("hidden", true);
   questionCard.setAttribute("hidden", true);
   scoreCard.setAttribute("hidden", true);
   leaderboardCard.setAttribute("hidden", true);
 }
+
+// Temporarily hide the "Correct/Incorrect" result message
 function hideResultText() {
   resultDiv.style.display = "none";
 }
 
-// Global vars
-let intervalID;
-let time;
-let currentQuestion;
+// ===============================
+// Global Variables
+// ===============================
+let intervalID;        // stores setInterval ID (for countdown timer)
+let time;              // total quiz time left
+let currentQuestion;   // index of the current question
 
 // ===============================
 // Quiz Start
 // ===============================
+
+// Start quiz when user clicks "Start Quiz" button
 document.querySelector("#start-button").addEventListener("click", startQuiz);
 
 function startQuiz() {
   hideCards();
-  questionCard.removeAttribute("hidden");
+  questionCard.removeAttribute("hidden"); // show questions card
 
+  // Reset quiz state
   currentQuestion = 0;
   correctCount = 0;
   wrongCount = 0;
 
+  // Show first question
   displayQuestion();
 
+  // Set timer: 10 seconds per question
   time = questions.length * 10;
   intervalID = setInterval(countdown, 1000);
   displayTime();
 }
 
+// Handles countdown logic
 function countdown() {
   time--;
   displayTime();
   if (time < 1) {
-    endQuiz();
+    endQuiz(); // if timer runs out, end quiz
   }
 }
+
+// Updates timer on screen
 function displayTime() {
   timeDisplay.textContent = time;
 }
 
 // ===============================
-// Questions
+// Question Handling
 // ===============================
+
+// Show current question and its options
 function displayQuestion() {
   let question = questions[currentQuestion];
   let options = question.options;
 
   document.querySelector("#question-text").textContent = question.questionText;
 
+  // Assign options text to each button
   for (let i = 0; i < options.length; i++) {
     let optionButton = document.querySelector("#option" + i);
     optionButton.textContent = options[i];
   }
 }
 
+// Listen for clicks on any option button
 document.querySelector("#quiz-options").addEventListener("click", checkAnswer);
 
+// Helper: check if clicked answer is correct
 function optionIsCorrect(optionButton) {
   return optionButton.textContent === questions[currentQuestion].answer;
 }
 
+// Handles answer checking logic
 function checkAnswer(eventObject) {
+  // Ignore clicks that aren’t on buttons
   if (!eventObject.target.matches("button")) return;
 
   let optionButton = eventObject.target;
-  resultDiv.style.display = "block";
+  resultDiv.style.display = "block"; // show result feedback
 
   if (optionIsCorrect(optionButton)) {
     resultText.textContent = "✅ Correct!";
@@ -225,6 +254,7 @@ function checkAnswer(eventObject) {
   } else {
     resultText.textContent = "❌ Incorrect!";
     wrongCount++;
+    // Apply 10-second penalty for wrong answers
     if (time >= 10) {
       time -= 10;
     } else {
@@ -232,8 +262,11 @@ function checkAnswer(eventObject) {
       endQuiz();
     }
   }
+
+  // Hide feedback after 1 second
   setTimeout(hideResultText, 1000);
 
+  // Move to next question OR end quiz if finished
   currentQuestion++;
   if (currentQuestion < questions.length) {
     displayQuestion();
@@ -245,11 +278,13 @@ function checkAnswer(eventObject) {
 // ===============================
 // End Quiz
 // ===============================
-function endQuiz() {
-  clearInterval(intervalID);
-  hideCards();
-  scoreCard.removeAttribute("hidden");
 
+function endQuiz() {
+  clearInterval(intervalID); // stop timer
+  hideCards();
+  scoreCard.removeAttribute("hidden"); // show score screen
+
+  // Show results
   document.querySelector("#score").textContent = correctCount;
   document.querySelector("#total-questions").textContent = questions.length;
   document.querySelector("#correct-count").textContent = correctCount;
@@ -257,48 +292,56 @@ function endQuiz() {
 }
 
 // ===============================
-// Leaderboard
+// Leaderboard Handling
 // ===============================
 const submitButton = document.querySelector("#submit-button");
 const inputElement = document.querySelector("#initials");
 
+// When player submits name, save score to leaderboard
 submitButton.addEventListener("click", storeScore);
 
 function storeScore(event) {
   event.preventDefault();
 
+  // Prevent empty names
   if (!inputElement.value) {
     alert("Please enter your name before pressing submit!");
     return;
   }
 
+  // Create new leaderboard entry
   let leaderboardItem = {
     initials: inputElement.value,
     score: correctCount,
   };
 
+  // Save entry to localStorage
   updateStoredLeaderboard(leaderboardItem);
 
+  // Show leaderboard card
   hideCards();
   leaderboardCard.removeAttribute("hidden");
   renderLeaderboard();
 }
 
+// Save updated leaderboard to localStorage
 function updateStoredLeaderboard(leaderboardItem) {
   let leaderboardArray = getLeaderboard();
   leaderboardArray.push(leaderboardItem);
   localStorage.setItem("leaderboardArray", JSON.stringify(leaderboardArray));
 }
 
+// Retrieve leaderboard from localStorage
 function getLeaderboard() {
   let storedLeaderboard = localStorage.getItem("leaderboardArray");
   return storedLeaderboard ? JSON.parse(storedLeaderboard) : [];
 }
 
+// Render leaderboard on screen
 function renderLeaderboard() {
   let sortedLeaderboardArray = sortLeaderboard();
   const highscoreList = document.querySelector("#highscore-list");
-  highscoreList.innerHTML = "";
+  highscoreList.innerHTML = ""; // clear old list
   sortedLeaderboardArray.forEach(entry => {
     let newListItem = document.createElement("li");
     newListItem.textContent = `${entry.initials} - ${entry.score}`;
@@ -306,25 +349,34 @@ function renderLeaderboard() {
   });
 }
 
+// Sort leaderboard: highest scores first
 function sortLeaderboard() {
   let leaderboardArray = getLeaderboard();
   leaderboardArray.sort((a, b) => b.score - a.score);
   return leaderboardArray;
 }
 
+// ===============================
+// Leaderboard Buttons
+// ===============================
+
+// Clear leaderboard from localStorage
 document.querySelector("#clear-button").addEventListener("click", () => {
   localStorage.clear();
   renderLeaderboard();
 });
+
+// Return to start screen
 document.querySelector("#back-button").addEventListener("click", () => {
   hideCards();
   startCard.removeAttribute("hidden");
 });
 
+// Open leaderboard directly (via header link)
 document.querySelector("#leaderboard-link").addEventListener("click", () => {
   hideCards();
   leaderboardCard.removeAttribute("hidden");
-  clearInterval(intervalID);
+  clearInterval(intervalID); // stop timer when viewing leaderboard
   time = undefined;
   displayTime();
   renderLeaderboard();

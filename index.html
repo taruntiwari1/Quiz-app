@@ -1,22 +1,37 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Defines document type as HTML5 -->
   <meta charset="utf-8" />
+
+  <!-- Ensures page is responsive on all devices (scales with screen size) -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- External CSS file for styling the quiz -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Font Awesome library for icons (used in buttons and UI elements) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <!-- Title of the page shown on browser tab -->
   <title>Computer Fundamentals Quiz By Tarun Tiwari</title>
+
+  <!-- Favicon (small icon shown in browser tab beside title) -->
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
+  <!-- Header contains link to view highscores and the timer -->
   <header>
+    <!-- Link to leaderboard, styled as a button with pointing hand icon -->
     <a id="leaderboard-link" href="#" role="button">View Highscores <i class="fas fa-hand-point-left fa-lg"></i></a>
+
+    <!-- Live updating timer shown to the user -->
     <time aria-live="polite">Time: <span id="time"></span></time>
   </header>
 
   <main>
-    <!-- Start card -->
+    <!-- Start card: first screen shown when quiz hasn't started -->
     <div id="start-card" class="card">
       <h2 id="title">Computer Fundamentals Quiz</h2>
       <p>
@@ -24,13 +39,16 @@
         <br /><br />
         Keep in mind that incorrect answers will penalize your time by ten seconds!
       </p>
+      <!-- Button to start quiz (triggers script.js logic) -->
       <button id="start-button" class="button" type="button">Start Quiz</button>
     </div>
 
-    <!-- Question card -->
+    <!-- Question card: appears once quiz starts -->
     <div hidden id="question-card" class="card">
+      <!-- Question text dynamically updated by JS -->
       <h2 id="question-text"></h2>
 
+      <!-- Multiple-choice options (buttons dynamically filled with answers) -->
       <div id="quiz-options" aria-label="Quiz options">
         <button id="option0" type="button" class="button option-button" aria-label="Option 1"></button>
         <button id="option1" type="button" class="button option-button" aria-label="Option 2"></button>
@@ -38,21 +56,23 @@
         <button id="option3" type="button" class="button option-button" aria-label="Option 4"></button>
       </div>
 
+      <!-- Result feedback (Correct / Wrong) shown after each answer -->
       <div id="result-div" aria-live="polite">
         <hr />
         <p id="result-text"></p>
       </div>
     </div>
 
-    <!-- Score card (single detailed card) -->
+    <!-- Score card: shown when quiz is completed -->
     <div hidden id="score-card" class="card">
       <h2>All done!</h2>
 
+      <!-- Displays final score and question stats -->
       <p>Your final score is <strong><span id="score"></span></strong> / <span id="total-questions"></span></p>
-
       <p>✅ Correct Answers: <strong><span id="correct-count"></span></strong></p>
       <p>❌ Wrong Answers: <strong><span id="wrong-count"></span></strong></p>
 
+      <!-- Form to submit player name for leaderboard -->
       <form class="inline-form" id="submission-form">
         <label for="initials">Enter Your Name: </label>
         <input type="text" id="initials" autocomplete="name" />
@@ -60,11 +80,14 @@
       </form>
     </div>
 
-    <!-- Leaderboard -->
+    <!-- Leaderboard: shows highscores after quiz -->
     <div hidden id="leaderboard-card" class="card">
       <h2>Highscores</h2>
+
+      <!-- Ordered list to display highscore entries dynamically -->
       <ol id="highscore-list"></ol>
 
+      <!-- Buttons for leaderboard actions -->
       <div class="inline-buttons">
         <button id="back-button" class="button" type="button">Go Back</button>
         <button id="clear-button" class="button" type="button">Clear Highscores</button>
@@ -72,11 +95,12 @@
     </div>
   </main>
 
-  <!-- Watermark / credit -->
+  <!-- Footer with credit -->
   <footer class="watermark" aria-label="credit">
     <span>Made with <span class="heart">❤️</span> by <strong>Tarun Tiwari</strong></span>
   </footer>
 
+  <!-- External JavaScript file that powers quiz logic -->
   <script src="script.js"></script>
 </body>
 </html>
